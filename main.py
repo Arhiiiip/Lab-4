@@ -6,10 +6,10 @@ class WhiteShark:
     def __init__(self):
         self.name = 'WhiteShark'
         self.hp = 400
-        self.intellect = 5
+        self.intellect = 4
         self.speed = 5
         self.size = 10
-        self.strength = 11
+        self.strength = 60
 
     def drop(self):
         loot = ['TOOTH', 'FIN']
@@ -33,7 +33,7 @@ class SwordFish:
         self.intellect = 5
         self.speed = 6
         self.size = 15
-        self.strength = 11
+        self.strength = 50
 
     def drop(self):
         loot = ['SWORD', 'FISH OIL', 'FIN']
@@ -53,11 +53,11 @@ class Barracuda:
 
     def __init__(self):
         self.name = 'Barracuda'
-        self.hp = 550
+        self.hp = 500
         self.intellect = 4
         self.speed = 6
         self.size = 8
-        self.strength = 10
+        self.strength = 50
 
     def drop(self):
         loot = ['FANG', 'FISH OIL', 'FIN']
@@ -81,7 +81,7 @@ class MackerelSapedHydrolysis:
         self.intellect = 8
         self.speed = 5
         self.size = 10
-        self.strength = 9
+        self.strength = 60
 
     def drop(self):
         loot = ['SWORD', 'FISH OIL', 'FIN']
@@ -101,11 +101,11 @@ class Piranhas:
 
     def __init__(self):
         self.name = 'Piranhas'
-        self.hp = 250
-        self.intellect = 10
+        self.hp = 300
+        self.intellect = 9
         self.speed = 9
         self.size = 3
-        self.strength = 8
+        self.strength = 60
 
     def drop(self):
         loot = ['JAW', 'FIN']
@@ -125,11 +125,11 @@ class Perch:
 
     def __init__(self):
         self.name = 'Perch'
-        self.hp = 200
+        self.hp = 250
         self.intellect = 7
         self.speed = 8
         self.size = 9
-        self.strength = 9
+        self.strength = 60
 
     def drop(self):
         loot = ['TAIL', 'JAW']
@@ -150,10 +150,10 @@ class Stingray:
     def __init__(self):
         self.name = 'Stingray'
         self.hp = 600
-        self.intellect = 6
+        self.intellect = 5
         self.speed = 5
         self.size = 8
-        self.strength = 7
+        self.strength = 50
 
     def drop(self):
         loot = ['SPIKE', 'FISH MEAT']
@@ -177,7 +177,7 @@ class Catfish:
         self.intellect = 4
         self.speed = 6
         self.size = 5
-        self.strength = 7
+        self.strength = 60
 
     def drop(self):
         loot = ['FISH OIL', 'TAIL']
@@ -205,18 +205,29 @@ def fight():
         for i in range(0, len(fish), 2):
             health_point_1 = fish[i].hp
             health_point_2 = fish[i + 1].hp
+            chance_crit_dam_1 = fish[i].intellect
+            chance_crit_dam_2 = fish[i + 1].intellect
             while fish[i].hp > 0 and fish[i + 1].hp > 0:
-                health_point_1 = health_point_1 - fish[i + 1].strength * \
-                                 fish[i + 1].intellect
-                if health_point_1 <= 0:
-                    fish_lose.append(fish[i])
-                    fish[i].dead()
-                    break
-                health_point_2 = health_point_2 - fish[i].strength * \
-                                 fish[i].intellect
+                ran_num_1 = random.uniform(0, 10)
+                ran_num_2 = random.uniform(0, 10)
+                if ran_num_1 <= chance_crit_dam_1:
+                    health_point_2 = health_point_2 - fish[
+                        i].strength * random.randint(2, 5)
+                else:
+                    health_point_2 = health_point_2 - fish[i].strength
                 if health_point_2 <= 0:
                     fish_lose.append(fish[i + 1])
                     fish[i + 1].dead()
+                    break
+                if ran_num_2 <= chance_crit_dam_2:
+                    health_point_1 = health_point_1 - fish[
+                        i + 1].strength * random.randint(2, 5)
+                else:
+                    health_point_1 = health_point_1 - fish[
+                        i + 1].strength
+                if health_point_1 <= 0:
+                    fish_lose.append(fish[i])
+                    fish[i].dead()
                     break
         for i in fish_lose:
             fish.remove(i)
