@@ -73,57 +73,55 @@ class Catfish(fish):
         super().__init__('Catfich', 500, 4, 6, 5, 60,
                          ['FISH OIL', 'TAIL'], 'BOOL!!!')
 
-print(WhiteShark.drop)
 
 
+first_fish = WhiteShark()
+second_fish = SwordFish()
+third_fish = Barracuda()
+fourth_fish = MackerelSapedHydrolysis()
+fifth_fish = Piranhas()
+sixth_fish = Perch()
+seventh_fish = Stingray()
+eighth_fish = Catfish()
 
-# first_fish = WhiteShark()
-# second_fish = SwordFish()
-# third_fish = Barracuda()
-# fourth_fish = MackerelSapedHydrolysis()
-# fifth_fish = Piranhas()
-# sixth_fish = Perch()
-# seventh_fish = Stingray()
-# eighth_fish = Catfish()
-#
-# fishes = [first_fish, second_fish, third_fish, fourth_fish, fifth_fish,
-#           sixth_fish, seventh_fish, eighth_fish]
-# random.shuffle(fishes)
-#
-#
-# def fight():
-#     while len(fishes) != 1:
-#         fish_lose = []
-#         for i in range(0, len(fishes), 2):
-#             health_point_1 = fishes[i].hp
-#             health_point_2 = fishes[i + 1].hp
-#             chance_crit_dam_1 = fishes[i].intellect
-#             chance_crit_dam_2 = fishes[i + 1].intellect
-#             while fishes[i].hp > 0 and fishes[i + 1].hp > 0:
-#                 ran_num_1 = random.uniform(0, 10)
-#                 ran_num_2 = random.uniform(0, 10)
-#                 if ran_num_1 <= chance_crit_dam_1:
-#                     health_point_2 = health_point_2 - fishes[
-#                         i].strength * random.randint(2, 5)
-#                 else:
-#                     health_point_2 = health_point_2 - fishes[i].strength
-#                 if health_point_2 <= 0:
-#                     fish_lose.append(fishes[i + 1])
-#                     fishes[i + 1].dead()
-#                     break
-#                 if ran_num_2 <= chance_crit_dam_2:
-#                     health_point_1 = health_point_1 - fishes[
-#                         i + 1].strength * random.randint(2, 5)
-#                 else:
-#                     health_point_1 = health_point_1 - fishes[
-#                         i + 1].strength
-#                 if health_point_1 <= 0:
-#                     fish_lose.append(fishes[i])
-#                     fishes[i].dead()
-#                     break
-#         for i in fish_lose:
-#             fishes.remove(i)
-#     print('WINNER:' + fishes[0].name)
-#
-#
-# fight()
+fishes = [first_fish, second_fish, third_fish, fourth_fish, fifth_fish,
+          sixth_fish, seventh_fish, eighth_fish]
+random.shuffle(fishes)
+
+
+def fight():
+    while len(fishes) != 1:
+        fish_lose = []
+        for i in range(0, len(fishes), 2):
+            health_point_1 = fishes[i].hp
+            health_point_2 = fishes[i + 1].hp
+            chance_crit_dam_1 = fishes[i].intellect
+            chance_crit_dam_2 = fishes[i + 1].intellect
+            while fishes[i].hp > 0 and fishes[i + 1].hp > 0:
+                ran_num_1 = random.uniform(0, 10)
+                ran_num_2 = random.uniform(0, 10)
+                if ran_num_1 <= chance_crit_dam_1:
+                    health_point_2 = health_point_2 - fishes[
+                        i].strength * random.randint(2, 5)
+                else:
+                    health_point_2 = health_point_2 - fishes[i].strength
+                if health_point_2 <= 0:
+                    fish_lose.append(fishes[i + 1])
+                    fishes[i + 1].dead()
+                    break
+                if ran_num_2 <= chance_crit_dam_2:
+                    health_point_1 = health_point_1 - fishes[
+                        i + 1].strength * random.randint(2, 5)
+                else:
+                    health_point_1 = health_point_1 - fishes[
+                        i + 1].strength
+                if health_point_1 <= 0:
+                    fish_lose.append(fishes[i])
+                    fishes[i].dead()
+                    break
+        for i in fish_lose:
+            fishes.remove(i)
+    print('WINNER:' + fishes[0].name)
+
+
+fight()
