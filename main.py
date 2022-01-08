@@ -21,21 +21,33 @@ class Fish:
         print(self.speech)
 
     def dead(self):
-        Fish.drop
-        Fish.scream
+        Fish.drop(self)
+        Fish.scream(self)
         print(f'{self.name} DEAD!!!')
 
 
 class WhiteShark(Fish):
+
     def __init__(self):
         super().__init__('WhiteShark', 400, 4, 5, 10, 60,
                          ['TOOTH', 'FIN'], 'BOOM!!!')
 
+    def dead(self):
+        Fish.drop(self)
+        Fish.scream(self)
+        print(f'Grand Mr.{self.name} DEAD!!!')
+
 
 class SwordFish(Fish):
+
     def __init__(self):
         super().__init__('SwordFish', 300, 5, 6, 15, 50,
                          ['SWORD', 'FISH OIL', 'FIN'], 'FIP FIP FIP')
+
+    def dead(self):
+        Fish.drop(self)
+        Fish.scream(self)
+        print(f'{self.name} quickly sailed deep...')
 
 
 class Barracuda(Fish):
@@ -51,9 +63,16 @@ class MackerelSapedHydrolysis(Fish):
 
 
 class Piranhas(Fish):
+
     def __init__(self):
         super().__init__('Piranhas', 300, 9, 9, 3, 60, ['JAW', 'FIN'],
                          'HR HR HR!!!')
+
+    def dead(self):
+        Fish.drop(self)
+        print(
+            f'{self.name} dead, but the other part of the pack will '
+            f'still come back! {self.speech}')
 
 
 class Perch(Fish):
