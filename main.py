@@ -21,9 +21,19 @@ class Fish:
         print(self.speech)
 
     def dead(self):
-        Fish.drop(self)
-        Fish.scream(self)
+        self.drop()
+        self.scream()
         print(f'{self.name} DEAD!!!')
+
+    def damage(self, other):
+        self.hp = Fish.__sub__(self.hp, other.strength)
+
+    def critical_damage(self, other):
+        self.hp = Fish.__sub__(self.hp,
+                               other.strength * random.randint(2, 5))
+
+    def __sub__(self, other):
+        return self - other
 
 
 class WhiteShark(Fish):
@@ -33,8 +43,8 @@ class WhiteShark(Fish):
                          ['TOOTH', 'FIN'], 'BOOM!!!')
 
     def dead(self):
-        Fish.drop(self)
-        Fish.scream(self)
+        self.drop()
+        self.scream()
         print(f'Grand Mr.{self.name} DEAD!!!')
 
 
@@ -45,8 +55,8 @@ class SwordFish(Fish):
                          ['SWORD', 'FISH OIL', 'FIN'], 'FIP FIP FIP')
 
     def dead(self):
-        Fish.drop(self)
-        Fish.scream(self)
+        self.drop()
+        self.scream()
         print(f'{self.name} quickly sailed deep...')
 
 
@@ -69,7 +79,7 @@ class Piranhas(Fish):
                          'HR HR HR!!!')
 
     def dead(self):
-        Fish.drop(self)
+        self.drop()
         print(
             f'{self.name} dead, but the other part of the pack will '
             f'still come back! {self.speech}')
@@ -111,29 +121,22 @@ def fight():
     while len(fishes) != 1:
         fish_lose = []
         for i in range(0, len(fishes), 2):
-            health_point_1 = fishes[i].hp
-            health_point_2 = fishes[i + 1].hp
-            chance_crit_dam_1 = fishes[i].intellect
-            chance_crit_dam_2 = fishes[i + 1].intellect
             while fishes[i].hp > 0 and fishes[i + 1].hp > 0:
                 ran_num_1 = random.uniform(0, 10)
                 ran_num_2 = random.uniform(0, 10)
-                if ran_num_1 <= chance_crit_dam_1:
-                    health_point_2 = health_point_2 - fishes[
-                        i].strength * random.randint(2, 5)
+                if ran_num_1 <= fishes[i].intellect:
+                    Fish.critical_damage(fishes[i + 1], fishes[i])
                 else:
-                    health_point_2 = health_point_2 - fishes[i].strength
-                if health_point_2 <= 0:
+                    Fish.damage(fishes[i + 1], fishes[i])
+                if fishes[i + 1].hp <= 0:
                     fish_lose.append(fishes[i + 1])
                     fishes[i + 1].dead()
                     break
-                if ran_num_2 <= chance_crit_dam_2:
-                    health_point_1 = health_point_1 - fishes[
-                        i + 1].strength * random.randint(2, 5)
+                if ran_num_2 <= fishes[i + 1].intellect:
+                    Fish.critical_damage(fishes[i], fishes[i + 1])
                 else:
-                    health_point_1 = health_point_1 - fishes[
-                        i + 1].strength
-                if health_point_1 <= 0:
+                    Fish.damage(fishes[i], fishes[i + 1])
+                if fishes[i].hp <= 0:
                     fish_lose.append(fishes[i])
                     fishes[i].dead()
                     break
