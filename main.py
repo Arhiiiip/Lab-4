@@ -14,6 +14,9 @@ class Fish:
         self.loot = loot
         self.speech = speech
 
+    def __sub__(self, other):
+        return self - other
+
     def drop(self):
         print('Drop:' + random.choice(self.loot))
 
@@ -31,9 +34,6 @@ class Fish:
     def critical_damage(self, other):
         self.hp = Fish.__sub__(self.hp,
                                other.strength * random.randint(2, 5))
-
-    def __sub__(self, other):
-        return self - other
 
 
 class WhiteShark(Fish):
